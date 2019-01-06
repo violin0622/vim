@@ -1,22 +1,23 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"		_vimrc by Violin
-"			2015-4-17
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+" config vim enviroments"""""
+let g:vim_env = 
+            \{ 
+            \'os':'',
+            \'client':'',
+            \}
 
-"检测是否为Windows
-if (has("win32") || has("win64") || has ("win32unix"))		
-	let g:isWindows = 1
-else
-	let g:isWindows = 0
+if has("win32") || has("win64") || has ("win32unix")
+    let g:vim_env.os = 'windows'
+elseif has('mac') || has('macunix')
+    let g:vim_env.os = 'mac'
+elseif has('unix')
+    let g:vim_env.os = 'unix'
 endif
 
-"检测是否为GVIM
-if has("gui_running")
-	let g:isGUI = 1
+if has('gui_running')
+    let g:vim_env.client = 'gui'
 else
-	let g:isGUI = 0
+    let g:vim_env.client = 'terminal'
 endif
-
 
 "常规设置""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -31,12 +32,15 @@ set history=1024	"历史记录
 "set scrolloff=10	"滚屏时上下保留10行
 set mouse=a			"鼠标在任何模式下可用
 set autochdir		"自动修改工作目录为文件所在目录
-set runtimepath+=$VIM/vimfiles/autoload
 set encoding=utf-8
 set langmenu=zh_CN.UTF-8
 language message zh_CN.UTF-8
 
-if(g:isWindows)
+if vim_env.os=='windows'
+    set runtimepath+=$VIM/vimfiles/autoload
+endif
+
+if(g:vim_env.os == 'windows')
 	set clipboard+=unnamed		"Windows环境下与剪贴板兼容
 endif
 
@@ -64,7 +68,7 @@ set mps+=<:>		"允许匹配尖括号
 set laststatus=2	"总是显示状态栏
 set guifont=Consolas:h12	"设置字体字号
 
-if(!isGUI)	"更改光标显示方式
+if vim_env.client == 'terminal'	"更改光标显示方式
 	set guicursor=n-v-c-o-sm:block,i-ci:hor15,r-cr:hor40
 else
 	set guicursor=n-v-ve-o:block-Cursor/lCursor-blinkwait0,
@@ -74,18 +78,19 @@ else
 endif
 
 
-au GUIEnter * simalt ~x		"启动VIM自动最大化
+if vim_env.client == 'gui'
+    au GUIEnter * simalt ~x		"启动VIM自动最大化
+endif
 
 "配色设置"""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-if(!isGUI)
+if vim_env.client == 'terminal'
 	set t_Co=256
 endif
 
 syntax enable
 syntax on
 
-"colorscheme desert
 "搜索设置"""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 set ignorecase		"大小写模糊
@@ -106,7 +111,82 @@ map <silent> <F2> :if &guioptions =~# 'm' <Bar>
         				\set guioptions+=m <Bar>
     			  \endif<CR>
 
-"cd D:/workspace		"更改默认工作目录
-cd D:/ProjectHome
+cd D:/workspace		"更改默认工作目录
+"cd D:/ProjectHome
 autocmd! bufwritepost _vimrc source $VIM/_vimrc		"vimrc更改后自动载入
+
+"Plug.vim configration""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if vim_env.os == 'windows'
+    let plug_position = '$VIM/vimfiles/plugs'
+    let plug_copy_command = 'copy "'.$VIM.'\vimfiles\plugs\vim-plug\plug.vim" "'.$VIM.'\vimfiles\autoload\"'
+elseif vim_env.os == 'unix'
+    let plug_position = '~/.vim/plugs'
+    let plug_copy_command = 'cp ~/.vim/plugs/vim-plug/plug.vim ~/.vim/autoload/'
+endif
+
+call plug#begin(plug_position)
+Plug 'junegunn/vim-plug',{'do': plug_copy_command}
+
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
+
+Plug 'crusoexia/vim-monokai'
+Plug 'altercation/vim-colors-solarized'
+
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'vim-airline/vim-airline'
+" need ctags in env
+Plug 'majutsushi/tagbar'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"NERDTree configration"""""""""""""""""""""""""""""
+
+let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.sw.$']
+
+" vim-nerdtree-tabs
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-easymotion configration"""""""""""""""""""""""
+
+map <Leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;'
+let g:EasyMotion_startofline = 0
+
+" move mappings
+map <Leader>J <Plug>(easymotion-sol-j)
+map <Leader>K <Plug>(easymotion-sol-k)
+" find mappings
+map <Leader>f <Plug>(easymotion-fl)
+map <Leader>F <Plug>(easymotion-Fl)
+map <Leader>t <Plug>(easymotion-tl)
+map <Leader>T <Plug>(easymotion-Tl)
+map <Leader><Leader>f <Plug>(easymotion-f)
+map <Leader><Leader>F <Plug>(easymotion-F)
+map <Leader><Leader>t <Plug>(easymotion-t)
+map <Leader><Leader>T <Plug>(easymotion-T)
+nmap <Leader><Leader>j  <Plug>(easymotion-overwin-line)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set background=dark
+colorscheme monokai
+
+imap <c-j> <Down>
+imap <c-k> <Up>
+imap <c-h> <Left>
+imap <c-l> <Right>
+imap <c-i> <esc>I
+imap <c-a> <esc>A
+imap <c-d> <esc>ddi
+
+"hello world my angle
 
