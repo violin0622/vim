@@ -12,7 +12,7 @@ elseif has('mac') || has('macunix')
 elseif has('unix')
     let g:vim_env.os = 'unix'
 endif
-
+""
 if has('gui_running')
     let g:vim_env.client = 'gui'
 else
