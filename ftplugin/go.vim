@@ -13,6 +13,8 @@ setlocal formatoptions-=t
 setlocal comments=s1:/*,mb:*,ex:*/,://
 setlocal commentstring=//\ %s
 
+setlocal winwidth=82
+
 setlocal colorcolumn=80
 noremap <buffer> <C-]> :call CocAction('jumpDefinition')<cr>
 let b:undo_ftplugin = 'setl fo< com< cms<'

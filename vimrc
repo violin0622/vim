@@ -180,7 +180,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""
 "NERDTree configration"""""""""""""""""""""""""""""
 
-let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.sw.$']
+let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.sw.$', '\.db$']
 
 " vim-nerdtree-tabs
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -208,10 +208,8 @@ map <Leader><Leader>t <Plug>(easymotion-t)
 map <Leader><Leader>T <Plug>(easymotion-T)
 nmap <Leader><Leader>j  <Plug>(easymotion-overwin-line)
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"vim-easymotion configration"""""""""""""""""""""""
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"smartim configration"""""""""""""""""""""""""""""""""
 if vim_env.os == 'mac'
     let g:smartim_default = 'com.apple.keylayout.ABC'
 endif
