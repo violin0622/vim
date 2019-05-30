@@ -158,6 +158,8 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'crusoexia/vim-monokai'
 Plug 'altercation/vim-colors-solarized'
 
+" markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
 
