@@ -86,7 +86,7 @@ endif
 if vim_env.os == 'windows' && vim_env.client == 'gui'
     auto GUIEnter * simalt ~x		"启动VIM自动最大化
 elseif vim_env.os == 'mac' && vim_env.client == 'gui'
-    set fullscreen
+    "set fullscreen
 endif
 
 "配色设置"""""""""""""""""""""""""""""""""""""""""""""
