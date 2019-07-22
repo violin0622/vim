@@ -219,7 +219,7 @@ endif
 
 set background=dark
 if vim_env.os == 'mac' && vim_env.client == 'terminal'
-    colorscheme solarized
+    colorscheme monokai
 else
     colorscheme monokai
 endif
