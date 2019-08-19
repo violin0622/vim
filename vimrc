@@ -159,8 +159,10 @@ Plug 'crusoexia/vim-monokai'
 Plug 'altercation/vim-colors-solarized'
 
 " markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
 Plug 'vim-airline/vim-airline'
 
 "compeletion
