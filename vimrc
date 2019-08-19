@@ -164,7 +164,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
 
 "compeletion
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'branch':'release'}
 
 " need ctags in env
 Plug 'majutsushi/tagbar'
@@ -172,7 +172,7 @@ Plug 'majutsushi/tagbar'
 " only work on mac OSX
 if vim_env.os == 'mac'
     Plug 'ybian/smartim'
-    Plug 'rizzatti/dash.vim'
+    "Plug 'rizzatti/dash.vim'
 endif
 
 Plug 'easymotion/vim-easymotion'
