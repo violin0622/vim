@@ -1,2 +1,3 @@
 /plugs/
 *.sw*
+.DS_Store
