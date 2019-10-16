@@ -16,4 +16,32 @@ setlocal colorcolumn=80
 noremap <buffer> <C-]> :call CocAction('jumpDefinition')<cr>
 let b:undo_ftplugin = 'setl fo< com< cms<'
 " vim: sw=2 sts=2 et
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')´
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')´
+
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }

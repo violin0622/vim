@@ -153,6 +153,7 @@ Plug 'junegunn/vim-plug',{'do': plug_copy_command}
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Yggdroot/LeaderF'
 
 "colorschemes
 Plug 'crusoexia/vim-monokai'
@@ -189,6 +190,11 @@ let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.sw.$', '\.db$']
 " vim-nerdtree-tabs
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
+nnoremap <D-1> :NERDTreeToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"Tagbar configration"""""""""""""""""""""""""""""""
+nnoremap <D-7> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-easymotion configration"""""""""""""""""""""""
