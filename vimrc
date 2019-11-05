@@ -178,6 +178,7 @@ if vim_env.os == 'mac'
     "Plug 'rizzatti/dash.vim'
 endif
 
+Plug 'wakatime/vim-wakatime'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 call plug#end()
@@ -241,3 +242,6 @@ imap <c-d> <esc>ddi
 nnoremap 0 ^
 nnoremap ^ 0
 
+" map for open and close terminal
+nnoremap <D-0> :vert bo term<CR>
+tnoremap <Esc> <C-w>:q!<CR>
