@@ -3,6 +3,7 @@ let g:vim_env =
             \{ 
             \'os':'',
             \'client':'',
+            \'version': 8.1,
             \}
 
 if has("win32") || has("win64") || has ("win32unix")
@@ -22,7 +23,7 @@ endif
 "常规设置""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible	"不兼容VI
-set errorbells		"报警响铃
+set noerrorbells		"报警响铃
 set autoread		"文件被修改时自动载入
 set confirm			"处理未保存或只读文件时弹出确认
 set nobackup		"不备份
@@ -54,8 +55,8 @@ set linebreak				"整词换行
 set expandtab				"适用空格代替制表符
 set tabstop=4				"制表符宽度
 set shiftwidth=4			"换行缩进
-set whichwrap+=>,h,l,<	    "Backspace
-set backspace=indent,eol,start	
+set whichwrap+=>,h,l,<	    "光标移动可以跨行（仅限 Normal 和 Visual 模式）
+set backspace=indent,eol,start	"退格键可以跨行
 
 "显示设置"""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -66,6 +67,12 @@ set showcmd			"显示命令
 set showmatch		"显示匹配的括号
 set mps+=<:>		"允许匹配尖括号
 set laststatus=2	"总是显示状态栏
+" 不要在breakat选项指定的符号处折行，而是在窗口最右边的字符折行。 
+" 对于中文输入来说，这样设置会舒服一点，但是会导致英文单词被折行。
+" 更好的处理方式是在breakat选项中添加中文标点，但是Vim现在不支持
+" 该选项设置中文字符。 
+set nolinebreak
+
 if vim_env.os == 'windows'
     set guifont=Consolas:h12	"设置字体字号
 elseif vim_env.os == 'mac'
@@ -164,6 +171,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
+" status bar
 Plug 'vim-airline/vim-airline'
 
 "compeletion
@@ -174,7 +182,7 @@ Plug 'majutsushi/tagbar'
 
 " only work on mac OSX
 if vim_env.os == 'mac'
-    Plug 'ybian/smartim'
+    "Plug 'ybian/smartim'
     "Plug 'rizzatti/dash.vim'
 endif
 
@@ -224,7 +232,7 @@ nmap <Leader><Leader>j  <Plug>(easymotion-overwin-line)
 if vim_env.os == 'mac'
     let g:smartim_default = 'com.apple.keylayout.ABC'
 endif
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set background=dark
 if vim_env.os == 'mac' && vim_env.client == 'terminal'
@@ -242,6 +250,8 @@ imap <c-d> <esc>ddi
 nnoremap 0 ^
 nnoremap ^ 0
 
-" map for open and close terminal
-nnoremap <D-0> :vert bo term<CR>
-tnoremap <Esc> <C-w>:q!<CR>
+if v:version>=800
+    " map for open and close terminal
+    nnoremap <D-0> :vert bo term<CR>
+    tnoremap <Esc> <C-w>:q!<CR>
+endif
